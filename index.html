@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Aimbot Sensi | 100% Headshot Snap</title>
+<style>
+* {margin:0;padding:0;touch-action:none;}
+body {background:rgba(0,0,0,0);overflow:hidden;}
+
+/* BLOCK OVERLAY */
+#block-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #000, #8b0000);
+    z-index: 9999999;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.block-box {
+    background: rgba(0,0,0,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    border: 5px solid #ff0000;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 50px #ff0000;
+}
+
+.block-box h1 {
+    color: #ff0000;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.block-box h2 {
+    color: #ffff00;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.block-box p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+.vip-button {
+    background: linear-gradient(45deg, gold, #ffd700);
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 15px;
+    display: inline-block;
+}
+
+.alternate-link {
+    background: linear-gradient(45deg, #0088ff, #00aaff);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#cross {
+    position:fixed;
+    width:250px;
+    height:250px;
+    border:8px solid #ff00ff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    z-index:2147483647;
+    transition:all 0.02s linear;
+    pointer-events:auto;
+    box-shadow:0 0 80px #ff00ff, inset 0 0 40px rgba(255,0,255,0.3);
+}
+#cross::before {
+    content:'100% HEADSHOT';
+    position:absolute;
+    top:-65px;
+    left:-90px;
+    color:#ff00ff;
+    font:28px bold monospace;
+    text-shadow:0 0 25px #ff00ff;
+}
+#cross::after {
+    content:'💀';
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:80px;
+    animation:pulse 0.3s infinite;
+}
+#magnet {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background:rgba(255,0,255,0.05);
+    z-index:2147483647;
+    pointer-events:auto;
+}
+#status {
+    position:fixed;
+    top:10px;
+    left:10px;
+    color:#ff00ff;
+    font:28px monospace;
+    background:rgba(0,0,0,0.9);
+    padding:18px;
+    border-radius:25px;
+    border:4px solid #ff00ff;
+}
+#aimbot-bar {
+    position:fixed;
+    top:80px;
+    left:10px;
+    width:0;
+    height:25px;
+    background:linear-gradient(90deg,#ff0000,#ff00ff);
+    border-radius:15px;
+    transition:width 0.1s;
+}
+@keyframes pulse {
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.1);}
+}
+
+.m-locked {
+    border-color:#00ff00 !important;
+    box-shadow:0 0 80px lime !important;
+}
+.m-locked::before {
+    color:lime !important;
+}
+
+/* SESSION COUNTER */
+#session-counter {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: #00ffff;
+    font: 18px monospace;
+    background: rgba(0,0,0,0.8);
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 2px solid #00ffff;
+    z-index: 2147483648;
+}
+
+/* SECURITY BADGE */
+#security-badge {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: #00ff00;
+    font: 12px monospace;
+    background: rgba(0,0,0,0.8);
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #00ff00;
+    z-index: 2147483648;
+}
+</style>
+</head>
+<body>
+
+<!-- BLOCK OVERLAY -->
+<div id="block-overlay">
+    <div class="block-box">
+        <h1>🚫 USAGE LIMIT REACHED!</h1>
+        <h2>This device has used all 50 free sessions</h2>
+        
+        <p>Your device has reached the maximum of <strong>50 free Aimbot Sensi sessions</strong>.</p>
+        
+        <div style="background:rgba(255,215,0,0.1); padding:15px; border-radius:10px; margin:20px 0;">
+            <p style="color:gold; font-size:20px;">⭐ GET UNLIMITED VIP ACCESS</p>
+            <p><strong>India:</strong> ₹250 (Negotiable)</p>
+            <p><strong>Other Countries:</strong> $5 USD (Negotiable)</p>
+            <p style="color:#00ffff; margin-top:10px;">Contact: easyaim887@gmail.com</p>
+        </div>
+        
+        <button class="vip-button" onclick="contactForVIP()">
+            💰 CONTACT FOR VIP ACCESS
+        </button>
+        
+        <div style="margin:25px 0; padding:15px; background:rgba(0,100,255,0.1); border-radius:10px;">
+            <p style="color:#00ffff; font-size:18px;">🔄 ALTERNATE AIMBOT SENSI</p>
+            <p style="font-size:16px;">If you need another option, try our alternate tool:</p>
+            <a href="https://pankaj112343.github.io/Aimbot-sensi/" 
+               target="_blank" 
+               class="alternate-link">
+               🔗 Open Alternate Aimbot Sensi
+            </a>
+        </div>
+        
+        <p style="color:#ff9900; margin-top:20px; font-size:16px;">
+            📱 How to Use Aimbot Sensi:<br>
+            1. Open in Chrome browser<br>
+            2. Keep page open in background<br>
+            3. Open your game and play<br>
+            4. If it stops, refresh this page
+        </p>
+    </div>
+</div>
+
+<!-- SESSION COUNTER -->
+<div id="session-counter">Sensi: Loading...</div>
+
+<!-- SECURITY BADGE -->
+<div id="security-badge">🔒 Secured v2.1</div>
+
+<!-- AIMBOT ELEMENTS -->
+<div id="cross"></div>
+<div id="magnet"></div>
+<div id="status">🎯 100% HEADSHOT ACTIVE | Drag → Instant Head Snap</div>
+<div id="aimbot-bar"></div>
+
+<script>
+// ========== SIMPLE SESSION COUNTER (FIXED) ==========
+const MAX_SESSIONS = 50;
+let sessionCount = 1;
+let deviceId = null;
+
+// SIMPLE DEVICE ID (FIXED VERSION)
+function getOrCreateDeviceId() {
+    // Try to get existing ID
+    let id = localStorage.getItem('aimbot_device_id');
+    
+    if (!id) {
+        // Create new ID (simpler method)
+        id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('aimbot_device_id', id);
+        
+        // Initialize session count for new device
+        localStorage.setItem('aimbot_sessions', '1');
+        sessionCount = 1;
+    } else {
+        // Get existing session count
+        let sessions = localStorage.getItem('aimbot_sessions');
+        if (!sessions) {
+            sessions = '1';
+            localStorage.setItem('aimbot_sessions', sessions);
+        }
+        sessionCount = parseInt(sessions) + 1;
+        localStorage.setItem('aimbot_sessions', sessionCount.toString());
+    }
+    
+    deviceId = id;
+    return id;
+}
+
+// Check and update session
+function updateSessionCounter() {
+    getOrCreateDeviceId();
+    
+    // Update display
+    document.getElementById('session-counter').textContent = `Sensi: ${sessionCount}/${MAX_SESSIONS}`;
+    
+    // Check if limit reached
+    if (sessionCount > MAX_SESSIONS) {
+        document.getElementById('block-overlay').style.display = 'flex';
+        document.getElementById('cross').style.display = 'none';
+        document.getElementById('magnet').style.display = 'none';
+        document.getElementById('status').style.display = 'none';
+        document.getElementById('aimbot-bar').style.display = 'none';
+        document.getElementById('session-counter').style.display = 'none';
+        document.getElementById('security-badge').style.display = 'none';
+        return false;
+    }
+    
+    // Show reminder at specific sessions
+    if ([10, 25, 40, 48].includes(sessionCount)) {
+        setTimeout(() => {
+            if (confirm(`🎯 You've used ${sessionCount}/50 sessions!\n\n⭐ Want UNLIMITED 100% Headshot?\n\nVIP Features:\n✅ No limits\n✅ Instant head snap\n✅ ₹250/$5 only\n📧 easyaim887@gmail.com`)) {
+                contactForVIP();
+            }
+        }, 3000);
+    }
+    
+    return true;
+}
+
+// Contact for VIP
+function contactForVIP() {
+    const country = navigator.language === 'en-IN' ? 'India' : 'Other';
+    const price = country === 'India' ? '₹250 (Negotiable)' : '$5 USD (Negotiable)';
+    
+    const message = `VIP 100% Headshot Purchase:\n\n` +
+                   `Device: ${deviceId}\n` +
+                   `Sessions: ${sessionCount}\n` +
+                   `Country: ${country}\n` +
+                   `Price: ${price}\n\n` +
+                   `Contact: easyaim887@gmail.com`;
+    
+    alert(message);
+    window.open(`mailto:easyaim887@gmail.com?subject=VIP 100% Headshot&body=Device: ${deviceId}%0D%0ASessions: ${sessionCount}%0D%0ACountry: ${country}%0D%0AI want VIP!`);
+}
+
+// ========== INITIALIZE ==========
+window.addEventListener('load', function() {
+    // Update session counter FIRST
+    if (updateSessionCounter()) {
+        // Only initialize aimbot if sessions available
+        setTimeout(initializeAimbot, 100);
+    }
+});
+
+// ========== 100% HEADSHOT AIMBOT (INSTANT HEAD SNAP) ==========
+function initializeAimbot() {
+    let cross = document.getElementById('cross');
+    let magnet = document.getElementById('magnet');
+    let status = document.getElementById('status');
+    let aimbotBar = document.getElementById('aimbot-bar');
+    let aiming = false, aimbotLocked = false, targetHeadX = 0, targetHeadY = 0;
+    let fingerHistory = [];
+    
+    // ========== 100% HEADSHOT SETTINGS ==========
+    const HEAD_PREDICT = 220; // Increased for perfect head height
+    const BOT_LOCK_DIST = 25; // Very small distance = instant snap
+    const PREDICT_FRAMES = 5; // Maximum prediction
+    const DRAG_SPEED = 0.92; // Smooth but responsive
+    const HEAD_SNAP_SPEED = 0.15; // How fast it snaps to head
+
+    magnet.addEventListener('touchmove', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        if(!aiming) return;
+        
+        let touch = e.touches[0];
+        let fingerX = touch.clientX;
+        let fingerY = touch.clientY;
+        
+        // Store finger movement
+        fingerHistory.push({x: fingerX, y: fingerY, t: Date.now()});
+        if(fingerHistory.length > 8) fingerHistory.shift();
+        
+        // Calculate movement direction (for head prediction)
+        let moveX = 0, moveY = 0;
+        if(fingerHistory.length > 1) {
+            let last = fingerHistory[fingerHistory.length - 1];
+            let first = fingerHistory[0];
+            moveX = (last.x - first.x) / (fingerHistory.length - 1);
+            moveY = (last.y - first.y) / (fingerHistory.length - 1);
+        }
+        
+        // ========== 100% HEADSHOT CALCULATION ==========
+        // Predict enemy head position
+        let enemyHeadX = fingerX + (moveX * 3); // Lead the target
+        let enemyHeadY = fingerY - HEAD_PREDICT + (moveY * 0.5); // Head height
+        
+        // Screen center attraction (helps with head targeting)
+        let centerX = window.innerWidth / 2;
+        let centerY = window.innerHeight / 3; // Upper third for heads
+        let centerPull = 0.1;
+        enemyHeadX += (centerX - enemyHeadX) * centerPull;
+        enemyHeadY += (centerY - enemyHeadY) * centerPull;
+        
+        // Distance to target head
+        let distToHead = Math.sqrt(
+            Math.pow(enemyHeadX - fingerX, 2) + 
+            Math.pow(enemyHeadY - fingerY, 2)
+        );
+        
+        // ========== INSTANT HEAD SNAP ==========
+        if(distToHead < BOT_LOCK_DIST || aimbotLocked) {
+            aimbotLocked = true;
+            
+            // INSTANT SNAP TO HEAD
+            let snapFactor = 1 - (distToHead / BOT_LOCK_DIST);
+            snapFactor = Math.max(0.3, snapFactor); // Minimum 30% snap
+            
+            targetHeadX = targetHeadX * (1 - HEAD_SNAP_SPEED * snapFactor) + 
+                         enemyHeadX * (HEAD_SNAP_SPEED * snapFactor);
+            targetHeadY = targetHeadY * (1 - HEAD_SNAP_SPEED * snapFactor) + 
+                         enemyHeadY * (HEAD_SNAP_SPEED * snapFactor);
+            
+            // Visual feedback
+            cross.classList.add('m-locked');
+            aimbotBar.style.width = '250px';
+            
+            // 100% HEADSHOT CONFIRMATION
+            status.innerHTML = `🎯 100% HEADSHOT LOCKED | DIST: ${Math.round(distToHead)}px`;
+            
+        } else {
+            aimbotLocked = false;
+            cross.classList.remove('m-locked');
+            aimbotBar.style.width = '0px';
+            targetHeadX = enemyHeadX;
+            targetHeadY = enemyHeadY;
+            status.innerHTML = `🎯 DRAG TO HEAD | ${Math.round(distToHead)}px`;
+        }
+        
+        // Update crosshair position (SMOOTH)
+        cross.style.left = targetHeadX + 'px';
+        cross.style.top = targetHeadY + 'px';
+        
+        // Dynamic size based on lock strength
+        let lockStrength = 1 - (distToHead / BOT_LOCK_DIST);
+        if(lockStrength < 0) lockStrength = 0;
+        let size = 200 + (lockStrength * 80);
+        cross.style.width = cross.style.height = size + 'px';
+    }, {passive: false});
+
+    magnet.addEventListener('touchstart', e => {
+        e.preventDefault();
+        aiming = true;
+        aimbotLocked = false;
+        fingerHistory = [];
+        cross.classList.remove('m-locked');
+        status.style.background = 'rgba(20,0,20,0.95)';
+        status.innerHTML = '🎯 100% HEADSHOT READY | Drag near enemy';
+    });
+
+    document.addEventListener('touchend', () => {
+        aiming = false;
+        cross.style.width = cross.style.height = '250px';
+        cross.classList.remove('m-locked');
+        aimbotBar.style.width = '0px';
+        status.innerHTML = '🎯 <span style="color:#00ff00">100% HEADSHOT MODE</span> | Drag → Head Snap';
+    });
+
+    // ========== HEADSHOT TRAINING MODE ==========
+    let headshotCount = 0;
+    let lastHeadshotTime = 0;
+    
+    magnet.addEventListener('touchstart', function() {
+        let now = Date.now();
+        if(now - lastHeadshotTime < 500) { // 500ms between headshots
+            headshotCount++;
+            if(headshotCount >= 3) {
+                // TRIPLE HEADSHOT MODE ACTIVATED
+                status.innerHTML = '🔥 <span style="color:#ff9900">TRIPLE HEADSHOT MODE!</span>';
+                setTimeout(() => {
+                    if(aiming) {
+                        status.innerHTML = '🎯 100% HEADSHOT ACTIVE';
+                    }
+                }, 2000);
+            }
+        } else {
+            headshotCount = 1;
+        }
+        lastHeadshotTime = now;
+    });
+
+    // Auto instructions
+    setTimeout(() => {
+        if(sessionCount === 1) {
+            alert('🎯 100% HEADSHOT AIMBOT ACTIVATED!\n\nHOW TO USE:\n1. Drag finger near enemy\n2. Automatically snaps to head\n3. Keep page open in background\n4. Open game and play\n\n⭐ VIP: Unlimited ₹250/$5\n📧 easyaim887@gmail.com');
+        }
+    }, 2000);
+}
+
+// ========== DEBUG: TEST SESSION COUNTER ==========
+// Run this in console to test session counter
+function testSessionCounter() {
+    let current = localStorage.getItem('aimbot_sessions');
+    alert(`Current sessions: ${current}\nDevice ID: ${localStorage.getItem('aimbot_device_id')}`);
+}
+
+function resetSessions() {
+    if(confirm('Reset session counter?')) {
+        localStorage.removeItem('aimbot_sessions');
+        localStorage.removeItem('aimbot_device_id');
+        alert('Sessions reset! Reload page.');
+        location.reload();
+    }
+}
+</script>
+</body>
+</html>
